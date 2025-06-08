@@ -11,7 +11,6 @@ import os
 # Konfigurasi kunci API Gemini
 # PERINGATAN: Menulis kunci API langsung dalam kode tidak disarankan untuk produksi.
 # Gunakan variabel lingkungan atau manajemen rahasia yang aman untuk aplikasi yang disebarkan.
-# genai.configure(api_key=os.environ["GEMINI_API_KEY"]) # Baris asli yang membaca dari variabel lingkungan
 genai.configure(api_key="AIzaSyCWSQEkNkWbFY9AHwYGb1OKwyPt4McB7bY") # Kunci API diperbarui sesuai permintaan Anda
 
 # Buat model Gemini
@@ -319,9 +318,9 @@ if not df.empty:
         c.setFillColorRGB(0.75, 0.42, 0.52) # Darker pink
         c.drawCentredString(width/2.0, height - 50, "Dasbor Kampanye Media Sosial")
 
-        y_position = height - 100
         c.setFont("Helvetica-Bold", 16)
         c.setFillColorRGB(0.96, 0.45, 0.5) # Medium pink
+        y_position = height - 100
         c.drawString(50, y_position, "Ringkasan Strategi Kampanye:")
         y_position -= 20
         c.setFont("Helvetica", 12)
@@ -380,6 +379,7 @@ if not df.empty:
 
 else:
     st.info("Silakan unggah file CSV untuk memulai analisis.")
+
 
 
 
