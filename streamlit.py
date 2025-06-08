@@ -13,6 +13,10 @@ import os
 # Gunakan variabel lingkungan atau manajemen rahasia yang aman untuk aplikasi yang disebarkan.
 genai.configure(api_key="AIzaSyCWSQEkNkWbFY9AHwYGb1OKwyPt4McB7bY") # Kunci API diperbarui sesuai permintaan Anda
 
+# Definisikan palet untuk gaya coquette
+# PASTIKAN BAGIAN INI ADA DI FILE ANDA!
+COQUETTE_COLORS = ['#FFC0CB', '#F8B195', '#F67280', '#C06C84', '#6C5B7B', '#355C7D', '#E0BBE4', '#957DAD']
+
 # Buat model Gemini
 model = genai.GenerativeModel('gemini-2.0-flash')
 
@@ -176,8 +180,6 @@ if not df.empty:
     def get_llm_insight(prompt_text):
         try:
             response = model.generate_content(prompt_text)
-            # LLM akan mengembalikan respons dalam format JSON dengan 'text' part.
-            # Pastikan untuk mengaksesnya dengan benar
             return response.text
         except Exception as e:
             st.error(f"Gagal menghasilkan wawasan dari AI: {e}")
@@ -190,7 +192,7 @@ if not df.empty:
         sentiment_counts.columns = ['Sentiment', 'Count']
         fig_sentiment = px.pie(sentiment_counts, values='Count', names='Sentiment',
                                 title='Distribusi Sentimen Konten',
-                                color_discrete_sequence=COQUETTE_COLORS)
+                                color_discrete_sequence=COQUETTE_COLORS) # Pastikan COQUETTE_COLORS terdefinisi di sini
         fig_sentiment.update_traces(textposition='inside', textinfo='percent+label', marker=dict(line=dict(color='#000000', width=1)))
         fig_sentiment.update_layout(margin=dict(l=20, r=20, t=50, b=20))
         st.plotly_chart(fig_sentiment, use_container_width=True)
@@ -379,7 +381,4 @@ if not df.empty:
 
 else:
     st.info("Silakan unggah file CSV untuk memulai analisis.")
-
-
-
 
