@@ -9,12 +9,10 @@ import google.generativeai as genai
 import os
 
 # Konfigurasi kunci API Gemini
-# Pastikan Anda telah mengatur variabel lingkungan GEMINI_API_KEY
-try:
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
-except KeyError:
-    st.error("Kunci API Gemini tidak ditemukan. Harap atur variabel lingkungan 'GEMINI_API_KEY'.")
-    st.stop() # Hentikan eksekusi aplikasi jika kunci API tidak ada
+# PERINGATAN: Menulis kunci API langsung dalam kode tidak disarankan untuk produksi.
+# Gunakan variabel lingkungan atau manajemen rahasia yang aman untuk aplikasi yang disebarkan.
+# genai.configure(api_key=os.environ["GEMINI_API_KEY"]) # Baris asli yang membaca dari variabel lingkungan
+genai.configure(api_key="AIzaSyCWSQEkNkWbFY9AHwYGb1OKwyPt4McB7bY") # Kunci API diperbarui sesuai permintaan Anda
 
 # Buat model Gemini
 model = genai.GenerativeModel('gemini-2.0-flash')
@@ -297,6 +295,14 @@ if not df.empty:
         )
         st.markdown(campaign_summary_text)
         st.session_state['campaign_summary_text'] = campaign_summary_text # Simpan di session state
+        # Simpan wawasan juga di session state untuk PDF
+        st.session_state['insights'] = {
+            'sentiment': insight_sentiment,
+            'engagementTrend': insight_trend,
+            'platform': insight_platform,
+            'mediaType': insight_media_type,
+            'location': insight_location
+        }
     else:
         st.info("Unggah data untuk melihat ringkasan strategi kampanye.")
 
@@ -374,4 +380,6 @@ if not df.empty:
 
 else:
     st.info("Silakan unggah file CSV untuk memulai analisis.")
+
+
 
